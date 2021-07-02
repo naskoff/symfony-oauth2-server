@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                   https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+    <mapped-superclass name="App\Model\RefreshToken">
+        <field name="identifier" length="32"/>
+        <field name="expiryDateTime" column="expiry" type="datetime_immutable" />
+        <field name="revoked" type="boolean"/>
+        <many-to-one field="accessToken" target-entity="App\Model\AccessToken">
+            <join-column name="access_token" referenced-column-name="identifier" on-delete="SET NULL"/>
+        </many-to-one>
+    </mapped-superclass>
+</doctrine-mapping>
